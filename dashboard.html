@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emergency Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark">
+
+<h1>🚨 EMERGENCY SYSTEM</h1>
+
+<button onclick="sendAlert()">AUTO ACCIDENT ALERT</button>
+<button onclick="manualAlert()">DOUBLE POWER PRESS</button>
+<button onclick="startVideo()">📹 Start Video Call</button>
+<button onclick="logout()">Logout</button>
+
+
+<video id="video" autoplay></video>
+
+<br>
+
+<div class="call-box" id="callBox">
+  <video id="video" autoplay></video>
+
+  <!-- CUT CALL BUTTON -->
+  <button class="cut-btn" onclick="cutCall()">📞❌</button>
+</div>
+
+<button onclick="startCall()">Start Call</button>
+<script>
+let stream;
+const video = document.getElementById("video");
+const callBox = document.getElementById("callBox");
+
+function startCall() {
+  navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    .then(s => {
+      stream = s;
+      video.srcObject = stream;
+      callBox.style.display = "block";
+    });
+}
+
+function cutCall() {
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+  }
+  callBox.style.display = "none";
+  alert("📞 Call Cut");
+}
+</script>
+
+
+
+
+
+<p id="location"></p>
+<video id="video" autoplay></video>
+
+<script type="module" src="app.js"></script>
+
+<!-- <script src="app.js"></script> -->
+</body>
+</html>
